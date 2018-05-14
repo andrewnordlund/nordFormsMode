@@ -1,0 +1,18 @@
+{
+
+	"extensionName": {
+		"message": "Le Simulateur de Mode Formulaire de Nordburg",
+		"description": "Name of the extension."
+	},
+	
+	"extensionDescription": {
+		"message": "Indique quel mode raté tout en utilisant un lecteur d'écran sur une page Web par le biais d'une frontière solide rouge forme. Une ligne pointillée verte apparaît autour des éléments aria-describedby et aria-labelledby.",
+		"description": "Description of the extension."
+	},
+	
+	"browserActionTitle": {
+		"message": "Commencez la simulation du mode formulaire",
+		"description": "Appears when the mouse is over the button."
+	}
+
+}

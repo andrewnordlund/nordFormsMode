@@ -1,0 +1,18 @@
+{
+
+	"extensionName": {
+		"message": "Nordburg Forms Mode Simulator",
+		"description": "Name of the extension."
+	},
+	
+	"extensionDescription": {
+		"message": "Shows what forms mode missed while using screen reader on a web page by way of a red solid border. A green dashed line appears around aria-describedby and aria-labelledby elements.",
+		"description": "Description of the extension."
+	},
+	
+	"browserActionTitle": {
+		"message": "Forms Mode",
+		"description": "Appears when the mouse is over the button."
+	}
+
+}
