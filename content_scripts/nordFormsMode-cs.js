@@ -9,6 +9,7 @@ var listener = function (message, sender, sendResponse) {
 	//chrome.runtime.onMessage.removeListener(listener);
 	nordFormsModeCS.dbug = message.dbug;
 	if (message.task.match(/run/)) {
+		var ns = null;
 		ns = document.getElementById("nordFormsModeStyle");
 		if (ns) {
 			ns.parentNode.removeChild(ns);
@@ -62,6 +63,7 @@ nordFormsModeCS = {
 			} else {
 				nordFormsModeCS.setIcons("darkgreen");
 			}
+			var ns = null;
 			ns = document.getElementById("nordFormsModeStyle");
 			if (!ns) document.head.appendChild(nordFormsModeCS.nordStyle);
 		} else {
@@ -78,7 +80,7 @@ nordFormsModeCS = {
 				nordFormsModeCS.setIcons("blue");
 			}, 5000);
 		}
-	},
+	}, // End of run
 	startTraversing : function (node, fieldsetChild) {
 		var doc = document;
 		var dbug = false;
@@ -97,7 +99,7 @@ nordFormsModeCS = {
 		for (var i = 0; i < node.childNodes.length; i++) {
 			if (nordFormsModeCS.brk && nordFormsModeCS.dbug) console.log ("Continueing from way after breaking from textarea/select. - next iter.");
 			var thisNode = node.childNodes[i];
-			if (thisNode.nodeType == 1) {
+			if (thisNode.nodeType == 1) {	// It's a <node>
 				//if (thisNode.nodeName.match(/input/i)) nordFormsModeCS.dbug = true;
 				if (thisNode.nodeName.match(/fieldset/i)) {
 					if (nordFormsModeCS.formsMode) {
@@ -416,6 +418,7 @@ nordFormsModeCS = {
 							break;
 						}
 					}
+					if (nordFormsModeCS.dbug) console.log ("Thus element is aria-describedby by " + adescribedby.length + " elements.");
 					for (var i = 0; i < adescribedby.length; i++) {
 						if (nordFormsModeCS.isStillFocusable(adescribedby[i])) {
 							if (adescribedby[i].nodeName.match(/(legend|fieldset)/i)) {
@@ -460,7 +463,13 @@ nordFormsModeCS = {
 	}, // End of isReadable
 	isStillFocusable : function (el) {
 		var rv = true;
-		if ((el.hasAttribute("tabindex") && !el.getAttribute("tabindex").match(/^-\d/)) || (el.hasAttribute("enabled") && !el.getAttribute("enabled").match(/false|disabled/g)) || (el.hasAttribute("disabled") && !el.getAttribute("disabled").match(/disabled|true/i)) /*|| (!el.hasAttribute("tabindex") && !el.hasAttribute("enabled") && !el.hasAttribute("disabled"))*/) rv = false;
+		if (
+		(el.hasAttribute("tabindex") && !el.getAttribute("tabindex").match(/^-\d/)) || 			// there's a tabindex and it's not negative
+		(el.hasAttribute("enabled") && !el.getAttribute("enabled").match(/false|disabled/g)) || 	// has an enabled attribute and it's not false
+		(el.hasAttribute("disabled") && !el.getAttribute("disabled").match(/disabled|true/i)) /*|| 	// has a disabled attribute and it's not true
+		(!el.hasAttribute("tabindex") && !el.hasAttribute("enabled") && !el.hasAttribute("disabled"))*/  // Not sure why this is commented out
+														//has tabindex but not enabled or disabled
+		) rv = false;
 		return rv;
 	}, // End of isStillFocusable
 	getLabelsFormControl : function (node) {
@@ -496,7 +505,7 @@ nordFormsModeCS = {
 		}
 		//if (nordFormsModeCS.dbug) console.log ("For label " + nordFormsModeCD.getNodeText(node) + " got element
 		return el;
-	},
+	}, // End of getLabelsFormControl
 	reset : function () {
 		//removeMessageListener("nordFormsMode@nordburg.ca:reset", listener);
 		var spans = document.querySelectorAll("span.nordFormsModeStyle");
@@ -548,7 +557,7 @@ nordFormsModeCS = {
 		}
 		
 		//nordFormsModeCS.setIcons("blue");
-	},
+	}, // End of reset
 	getNodeText : function(n) {
 		var returnValue = "";
 		if (n == "undefined") {
@@ -563,7 +572,7 @@ nordFormsModeCS = {
 			}
 		}
 		return returnValue;
-	},
+	}, // End of getNodeText
 	turnOnFormsMode : function () {
 		nordFormsModeCS.formsMode = true;
 		if (nordFormsModeCS.dbug) console.log ("Turning on Forms mode.");
@@ -576,12 +585,12 @@ nordFormsModeCS = {
 		nordFormsModeCS.nordStyle.innerHTML += ".nordLimitedSupportFormsModeStyle { border: 4px #AA0000 double; background-color: #FFFF00;}";
 		//nordFormsModeCS.setIconsRed();
 		//document.head.appendChild(nordFormsModeCS.nordStyle);
-	},
+	}, // End of turnOnFormsMode
 	setIcons : function (color) {
 		if (nordFormsModeCS.dbug) console.log ("Okay, finished in the CS, gonna send " + color + " back to the chrome script.");
 		browser.runtime.sendMessage({"color" : color});
 		//sendAsyncMessage("nordFormsMode@nordburg.ca:setIcons", {"color" : color});
-	},
+	}, // End of setIcons
 	getStatus : function () {
 		var doc = document;
 
@@ -592,7 +601,7 @@ nordFormsModeCS = {
 		var limitedSupport = doc.querySelectorAll(".nordLimitedSupportFormsModeStyle");
 		if (nordFormsModeStyle != null || (spans != null && spans.length > 0) || (arias != null && arias.length > 0) || (arialives != null && arialives.length > 0) || limitedSupport != null && limitedSupport.length > 0) {
 			//if (nordFormsModeCS.dbug) 
-				console.log("Found evidence of nordForms mode simming.");
+			console.log("Found evidence of nordForms mode simming.");
 			nordFormsModeCS.simming = true;
 			if (spans != null && spans.length > 0) {
 				nordFormsModeCS.setIcons("red");
@@ -605,11 +614,11 @@ nordFormsModeCS = {
 			nordFormsModeCS.simming = false;	// Uh-oh.  What to do with this?
 			nordFormsModeCS.setIcons("blue");
 		}
-	},
+	}, // End of getStatus
 	addAListener : function () {
 		console.log("Adding message listener.");
 		console.log("Added message listener.");
-	}
+	} // End of addAListener
 }
 
 //chrome.runtime.onConnect.addListener(nordFormsModeCS.addAListener);
