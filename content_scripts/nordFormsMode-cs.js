@@ -397,7 +397,7 @@ nordFormsModeCS = {
 				var id = node.getAttribute("id");
 				if (nordFormsModeCS.dbug) console.log ("isReadable::Has an id: " + id + ".\n");
 				var alabelledby, adescribedby = Array();
-				id = id.replace( /(:|\.|\[|\]|\-|\{|\})/g, "\\$1" );
+				id = id.replace( /(:|\.|\[|\]|\-|\{|\}| |\s|\=)/g, "\\$1" );
 				try {
 					alabelledby = document.querySelectorAll("[aria-labelledby~=" + id + "]");
 					adescribedby = document.querySelectorAll("[aria-describedby~=" + id + "]");
