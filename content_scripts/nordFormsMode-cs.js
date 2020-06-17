@@ -44,7 +44,7 @@ nordFormsModeCS = {
 		nordFormsModeCS.output = "";
 		//document.addEventListener("load", function () {if (nordFormsModeCS.dbug) console.log ("Reloading!");}, false);
 		//first we must see if we're resetting or simming
-		//nordFormsModeCS.dbug = false;
+		//nordFormsModeCS.dbug = true;
 		nordFormsModeCS.startTraversing(document.body, false);
 		nordFormsModeCS.formsMode = false;
 		nordFormsModeCS.readyToLeave = false;
@@ -76,7 +76,7 @@ nordFormsModeCS = {
 			nordFormsModeCS.nordStyle = null;
 			nordFormsModeCS.setIcons("green");
 			setTimeout(function () {
-				console.log ("It's been green for long enough.  Resetting to blue.");
+				if (nordFormsModeCS.dbug) console.log ("It's been green for long enough.  Resetting to blue.");
 				nordFormsModeCS.setIcons("blue");
 			}, 5000);
 		}
@@ -397,7 +397,8 @@ nordFormsModeCS = {
 				var id = node.getAttribute("id");
 				if (nordFormsModeCS.dbug) console.log ("isReadable::Has an id: " + id + ".\n");
 				var alabelledby, adescribedby = Array();
-				id = id.replace( /(:|\.|\[|\]|\-|\{|\}| |\s|\=)/g, "\\$1" );
+				//id = id.replace( /(:|\.|\[|\]|\-|\{|\}| |\s|\=)/g, "\\$1" );
+				id = CSS.escape(id);
 				try {
 					alabelledby = document.querySelectorAll("[aria-labelledby~=" + id + "]");
 					adescribedby = document.querySelectorAll("[aria-describedby~=" + id + "]");
@@ -405,6 +406,7 @@ nordFormsModeCS = {
 				catch (ex) {
 					console.error("id:" + id + "\nex: " + ex.message + ".");
 				}
+				//console.log ("Got this far.");
 				var readable = false;
 				if (alabelledby.length + adescribedby.length > 0) {
 					if (nordFormsModeCS.dbug) console.log ("isReadable::alabelledby: " + alabelledby.length + ", adescribedby: " + adescribedby.length + ".\n");
