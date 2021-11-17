@@ -349,12 +349,15 @@ nordFormsModeCS = {
 		// is in forms mode:
 		// What's it's tabindex value?
 
-		if (node.hasAttribute("aria-live") && node.getAttribute("aria-live").match(/^polite|assertive$/i)) {
+		if ((node.hasAttribute("aria-live") && node.getAttribute("aria-live").match(/^polite|assertive$/i)) || (node.hasAttribute("role") && node.getAttribute("role").match(/^alert|status$/))) {
+			node.classList.add("nordFormsModeAriaLiveStyle");
+			/*
 			if (node.hasAttribute("class")) {
 				node.setAttribute("class", node.getAttribute("class") + " nordFormsModeAriaLiveStyle");
 			} else {
 				node.setAttribute("class", "nordFormsModeAriaLiveStyle");
 			}
+			*/
 			if (nordFormsModeCS.dbug) console.log("isReadable::returning true because it's an aria-live region.");
 			return true;
 		}
@@ -412,7 +415,7 @@ nordFormsModeCS = {
 					if (nordFormsModeCS.dbug) console.log ("isReadable::alabelledby: " + alabelledby.length + ", adescribedby: " + adescribedby.length + ".\n");
 					for (var i = 0; i < alabelledby.length; i++) {
 						if (nordFormsModeCS.isStillFocusable(alabelledby[i])) {
-							if (alabelledby[i].nodeName.match(/(legend|fieldset)/i)) {
+							if (alabelledby[i].nodeName.match(/(legend)/i)) {
 								readable = "limited";
 							} else {
 								readable = "aria";
@@ -423,7 +426,7 @@ nordFormsModeCS = {
 					if (nordFormsModeCS.dbug) console.log ("Thus element is aria-describedby by " + adescribedby.length + " elements.");
 					for (var i = 0; i < adescribedby.length; i++) {
 						if (nordFormsModeCS.isStillFocusable(adescribedby[i])) {
-							if (adescribedby[i].nodeName.match(/(legend|fieldset)/i)) {
+							if (adescribedby[i].nodeName.match(/(legend)/i)) {
 								readable = "limited";
 							} else {
 								readable = "aria";
@@ -546,10 +549,11 @@ nordFormsModeCS = {
 		}
 		var arias = document.querySelectorAll(".nordFormsModeAriaLiveStyle");
 		for (var i = 0; i < arias.length; i++) {
+			arias[i].classList.remove("nordFormsModeAriaLiveStyle");
+			/*
 			var text = document.createTextNode(nordFormsModeCS.getNodeText(arias[i]));
 			arias[i].parentNode.insertBefore(text, arias[i]);
 			arias[i].parentNode.removeChild(arias[i]);
-			/*
 			if (arias[i].getAttribute("class") == "nordFormsModeAriaLiveStyle") {
 				arias[i].removeAttribute("class");
 			} else {
