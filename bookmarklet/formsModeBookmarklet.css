@@ -1,0 +1,19 @@
+a.bookmarkletLink {
+	padding: .30%;
+	border: thin inset #808080;
+	background-color: #f0f0f0;
+}
+.fieldHolder {
+	margin-top: .7em;  
+	margin-bottom: .3em;  
+}
+.nordFormsMode {
+	border: 4px #AA0000 solid;
+}
+.nordAriaSomething {
+	border: 4px #00AA00 dashed;
+}
+.nordLimitedSupport {
+	border: 4px #AA0000 double;
+	background-color: #FFFF00;
+}

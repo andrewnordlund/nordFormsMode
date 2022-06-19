@@ -36,6 +36,7 @@ nordFormsModeBML = {
 	dbug : false,
 	brk : false,
 	output : "",
+	version : null,
 	run : function (message) {
 		//removeMessageListener("nordFormsMode@nordburg.ca:run", listener);
 		nordFormsModeBML.output = "";
