@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<title>Forms Mode Simulator Bookmarklet</title>
+		<!-- <link rel="Stylesheet" type="text/css" href="forms101.css"> -->
+		<style>
+a.bookmarkletLink {
+	padding: .30%;
+	border: thin inset #808080;
+	background-color: #f0f0f0;
+}
+		</style>		
+	<head>
+	<body>
+		<header>
+			<h1>Forms Mode Simulator Bookmarklet</h1>
+		</header>
+		<main>
+			<section>
+				<h2>What it does</h2>
+				<p>Some screen readers (like JAWS and NVDA) have something called "Forms Mode" or "Focus Mode" where keystrokes are sent directly to the browser instead of the sreen reader for interpreation.  In normal mode or "Browse Mode" or "Document Mode", for example, pressing "H" takes you to the next <code>&lt;h#&gt;</code>.  But in Forms Mode, like if you're filling in a form, then pressing "H" causes an "H" to go into the input you're focused on.  In Forms Mode, to navigate, users can either exit Forms Mode and go to the next thing (but you can't guarantee every user will do this), or the user can hit <kbd>Tab</kbd> to move to the next focusable element.  In Forms Mode, it's a good practice to assume that elements that are not focusable nor are referenced (by <code>aria-describedby</code> for example) by focusable elements, or are read out in an <code>aria-live</code> region will be missed by a screen reader in Forms Mode.</p>
+				<p>This Bookmarklet allows you to see what will likely be missed by a screen reader in Forms Mode.</p>
+				<p>When you run it, <span class="nordFormsMode">text that will be missed by a screen reader in forms mode get a dark red border</span>, and <span class="nordAriaSomething">text that's referenced by <code>aria</code> gets a dashed green border</span>.</p>
+				<p>When you run it again, everything gets cleaned up, and the page gets set back to what it was before.</p>
+			</section>
+			<section>
+				<h2>The Bookmarklet</h2>
+				<p>Drag the Nordburg Forms Mode Simulator (<a id="bookmarkletLink" class="bookmarkletLink" href="#">FMS</a>) link to your Bookmark toolbar, or add to a Bookmarks folder.
+			</section>
+			<section>
+				<h2>The Extensions</h2>
+				<p>To get the browser extensions, go to <a href="https://www.nordburg.ca/ext/home.php">Nordburg Extensions Page</a>.</p>
+		</main>
+		<footer>
+		</footer>
+	</body>
+</html>
